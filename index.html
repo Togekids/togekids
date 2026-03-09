@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>波克 POKER | 純情可愛的撲克貓咪</title>
     <style>
-        /* CSS 變數：定義銀白主題色 */
+        /* CSS 變數：定義明亮銀白主題色 */
         :root {
-            --bg-dark: #07030a; 
-            --primary-silver: #a1a1aa; /* 基礎銀色 */
-            --light-silver: #e4e4e7;   /* 亮白銀色 */
-            --neon-silver: #ffffff;    /* 霓虹白色 */
-            --text-main: #f8fafc;
-            --text-muted: #d1d5db;
+            --bg-light: #f8fafc; /* 亮白底色 */
+            --silver-gradient-1: #e2e8f0; 
+            --silver-gradient-2: #f1f5f9;
+            --text-main: #1e293b; /* 深曜石灰，確保文字極度清晰 */
+            --text-highlight: #334155; 
+            --accent-silver: #94a3b8; /* 點綴用的銀灰色 */
+            --card-bg: rgba(255, 255, 255, 0.65); /* 半透明亮色毛玻璃 */
         }
 
         /* 基礎設定與重置 */
@@ -24,12 +25,12 @@
         }
 
         body {
-            background-color: var(--bg-dark);
-            /* 優化銀白色系背景漸層 */
+            background-color: var(--bg-light);
+            /* 珍珠質感的銀白漸層背景 */
             background-image: 
-                radial-gradient(circle at 10% 10%, rgba(228, 228, 231, 0.1) 0%, transparent 45%),
-                radial-gradient(circle at 90% 90%, rgba(255, 255, 255, 0.05) 0%, transparent 45%),
-                radial-gradient(circle at 50% 50%, #1e1b21 0%, var(--bg-dark) 70%);
+                radial-gradient(circle at 15% 15%, #ffffff 0%, transparent 50%),
+                radial-gradient(circle at 85% 85%, var(--silver-gradient-1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, var(--silver-gradient-2) 0%, var(--bg-light) 100%);
             color: var(--text-main);
             min-height: 100vh;
             min-height: 100dvh;
@@ -59,36 +60,32 @@
         }
 
         .hero-title h1 {
-            /* 使用 clamp 讓字體在手機和電腦間流暢縮放 */
             font-size: clamp(3.5rem, 8vw, 6rem); 
             font-weight: 900; 
             letter-spacing: -2px; 
             line-height: 1;
             margin-bottom: 0.5rem;
             
-            /* 相容 Safari 的文字漸層設定 */
-            background: linear-gradient(135deg, #fff 0%, var(--primary-silver) 45%, var(--light-silver) 50%, #fff 55%, var(--primary-silver) 100%);
+            /* 深金屬質感的文字漸層，確保在白底上非常顯眼 */
+            background: linear-gradient(135deg, #0f172a 0%, #475569 45%, #1e293b 50%, #475569 55%, #0f172a 100%);
             background-size: 200% auto;
-            color: #fff; /* Fallback */
+            color: var(--text-main); /* Fallback */
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: shineText 5s linear infinite;
 
-            text-shadow: 
-                0 0 10px rgba(255, 255, 255, 0.5),
-                0 0 20px rgba(228, 228, 231, 0.3),
-                0 0 40px rgba(228, 228, 231, 0.1);
+            /* 淺色柔和陰影，增加立體感而不髒亂 */
+            text-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
         }
 
         .hero-title p {
             font-size: clamp(1.2rem, 3vw, 1.8rem);
-            color: var(--light-silver);
-            font-weight: 700;
+            color: var(--accent-silver);
+            font-weight: 800;
             letter-spacing: clamp(4px, 1.5vw, 10px); 
             text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-            margin-top: -5px;
+            margin-top: 5px;
             margin-left: 10px; 
         }
 
@@ -97,26 +94,26 @@
             position: relative;
             width: 100%;
             max-width: 550px; 
-            aspect-ratio: 1 / 1; /* 保持正方形比例 */
+            aspect-ratio: 1 / 1; 
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 5;
             opacity: 1; 
             animation: floatOnly 6s ease-in-out infinite;
-            pointer-events: none; /* 移除互動感 */
-            will-change: transform; /* 提升手機版動畫效能 */
+            pointer-events: none; 
+            will-change: transform; 
         }
 
-        /* 大圖背後的發光暈 (銀白色系) */
+        /* 大圖背後的柔和白光暈，讓去背圖更立體 */
         .image-showcase::before {
             content: '';
             position: absolute;
-            width: 70%;
-            height: 70%;
-            background: linear-gradient(135deg, #fff, var(--primary-silver));
-            filter: blur(80px);
-            opacity: 0.25;
+            width: 75%;
+            height: 75%;
+            background: #ffffff;
+            filter: blur(60px);
+            opacity: 0.8;
             border-radius: 50%;
             z-index: -1;
         }
@@ -125,21 +122,22 @@
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.8));
+            /* 調整陰影為適合淺色背景的深灰陰影 */
+            filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15));
         }
 
-        /* 📝 玻璃擬態資訊卡片 */
+        /* 📝 亮色玻璃擬態資訊卡片 */
         .info-card {
-            background: rgba(255, 255, 255, 0.03);
-            /* Safari 需要 -webkit- 前綴 */
-            -webkit-backdrop-filter: blur(20px);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--card-bg);
+            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 30px;
             padding: clamp(1.5rem, 5vw, 3rem); 
             width: 100%;
             max-width: 700px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            /* 柔和的卡片外陰影 */
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08), 0 0 20px rgba(255, 255, 255, 0.5) inset;
             
             animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
             opacity: 0;
@@ -151,9 +149,9 @@
         .info-card h2 {
             font-size: clamp(1.5rem, 4vw, 1.8rem);
             font-weight: 800;
-            color: var(--light-silver);
+            color: var(--text-highlight);
             margin-bottom: clamp(1.5rem, 4vw, 2rem);
-            border-left: 4px solid var(--neon-silver); /* 左側飾條改為白色 */
+            border-left: 5px solid var(--accent-silver); 
             padding-left: 1rem;
             line-height: 1;
         }
@@ -169,11 +167,14 @@
         .info-list li {
             display: flex;
             align-items: center;
-            font-size: clamp(1rem, 2.5vw, 1.2rem);
-            padding: 1rem 1.5rem;
+            font-size: clamp(1.05rem, 2.5vw, 1.2rem);
+            padding: 1.2rem 1.5rem;
             border-radius: 15px;
-            background: rgba(255, 255, 255, 0.01);
+            background: rgba(255, 255, 255, 0.4);
             border: 1px solid transparent;
+            color: var(--text-main);
+            font-weight: 500;
+            line-height: 1.6;
             
             transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
             position: relative;
@@ -182,10 +183,10 @@
         }
 
         .info-list li:hover {
-            background: rgba(255, 255, 255, 0.05); /* 微微的白色背景 */
-            border-color: rgba(255, 255, 255, 0.15); /* 微微的白色邊框 */
-            transform: translateX(10px) scale(1.02);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.9); 
+            border-color: rgba(148, 163, 184, 0.3); 
+            transform: translateX(8px) scale(1.01);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
         }
 
         .info-list li::before {
@@ -195,27 +196,21 @@
             top: 0;
             height: 100%;
             width: 0;
-            /* 左側發光條：銀白漸層 */
-            background: linear-gradient(to bottom, #fff, var(--primary-silver));
+            background: var(--text-highlight);
             transition: width 0.3s ease;
-            box-shadow: 0 0 15px #fff;
         }
 
         @media (hover: hover) {
             .info-list li:hover::before {
-                width: 5px;
-            }
-            .info-list li:hover strong {
-                color: #fff;
-                text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+                width: 4px;
             }
         }
 
         .info-list strong {
-            color: var(--light-silver);
+            color: var(--text-highlight);
             width: 140px;
             flex-shrink: 0;
-            font-weight: 700;
+            font-weight: 800;
             transition: color 0.3s ease;
         }
 
@@ -230,22 +225,25 @@
 
         .social-btn {
             text-decoration: none;
-            color: var(--text-main);
+            color: var(--text-highlight);
             padding: 1rem 2rem;
             border-radius: 50px;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 1px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.8rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: #ffffff;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            /* 按鈕陰影 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
             transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             position: relative;
             overflow: hidden;
             flex: 1 1 auto; 
             min-width: 150px; 
+            z-index: 1;
         }
 
         .social-btn::before {
@@ -255,8 +253,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* 按鈕 Hover 的冷色漸層 */
-            background: linear-gradient(45deg, #fff, var(--primary-silver));
+            background: var(--text-main);
             opacity: 0;
             z-index: -1;
             transition: opacity 0.4s ease;
@@ -265,15 +262,16 @@
         @media (hover: hover) {
             .social-btn:hover {
                 transform: translateY(-5px);
-                box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
+                color: #ffffff; /* Hover 時文字變白 */
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
                 border-color: transparent;
             }
             .social-btn:hover::before {
-                opacity: 1;
+                opacity: 1; /* 背景變深灰 */
             }
         }
 
-        /* 針對小螢幕與平板的 RWD 調整 */
+        /* RWD 調整 */
         @media (max-width: 768px) {
             body { padding: 2rem 1rem; }
             .info-list li { 
@@ -282,22 +280,28 @@
                 gap: 0.5rem; 
                 padding: 1.2rem; 
             }
-            .info-list strong { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.3rem;}
+            .info-list strong { 
+                width: 100%; 
+                border-bottom: 2px solid rgba(0,0,0,0.05); 
+                padding-bottom: 0.4rem;
+                margin-bottom: 0.2rem;
+            }
         }
 
-        /* 針對極小螢幕手機的保護 (如 iPhone SE) */
         @media (max-width: 380px) {
             .social-links { flex-direction: column; }
             .social-btn { width: 100%; }
         }
 
-        /* 關鍵格動畫 */
+        /* 動畫 */
         @keyframes slideDownFade {
-            to { opacity: 1; transform: translateY(0); }
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes slideUpFade {
-            to { opacity: 1; transform: translateY(0); }
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes shineText {
@@ -325,9 +329,18 @@
         <div class="info-card">
             <h2>自我介紹</h2>
             <ul class="info-list">
-                <li><strong>簡介</strong> 純情可愛的撲克貓咪</li>
-                <li><strong>名字</strong> 波克 Poker</li>
-                <li><strong>毛毛工作室</strong> (尚未提供)</li>
+                <li>
+                    <strong>簡介</strong> 
+                    <span>純情可愛的撲克貓咪、永遠的獸圈萌新！✨<br>身兼愛唱歌的走音天才，與四肢不協調的熱舞選手。</span>
+                </li>
+                <li>
+                    <strong>名字</strong> 
+                    <span>波克 Poker</span>
+                </li>
+                <li>
+                    <strong>毛毛工作室</strong> 
+                    <span>( 先保留空白 / 等待解鎖 )</span>
+                </li>
             </ul>
 
             <div class="social-links">
